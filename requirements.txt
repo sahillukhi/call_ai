@@ -1,0 +1,17 @@
+python-dotenv
+psycopg2-binary
+asyncpg
+fastapi
+pydantic
+uvicorn
+aiohttp
+google-generativeai
+websockets
+fastmcp
+loguru
+numpy
+google-genai
+itsdangerous
+APScheduler
+google_auth_oauthlib
+pytz

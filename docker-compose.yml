@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "8000:8000"
+    environment:
+      # Frontend URL for CORS, adjust if your frontend is not on localhost:5173
+      # For production, replace with your actual frontend domain
+      FRONTEND_URL: "http://localhost:5173"
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DATABASE_URL: postgresql://user:password@db:5432/mydatabase
+      PORT: 8000
+    depends_on:
+      - db
+      - mcp_calendar
+      - mcp_gmail
+    volumes:
+      - .:/app  # Mount current directory to /app inside the container
+
+  mcp_calendar:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp_calendar
+    ports:
+      - "8102:8102"
+    environment:
+      SESSION_SECRET: "a_strong_secret_key_for_calendar_mcp"
+    volumes:
+      - .:/app # Mount current directory to /app inside the container
+
+  mcp_gmail:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp_gmail
+    ports:
+      - "8101:8101"
+    environment:
+      SESSION_SECRET: "a_strong_secret_key_for_gmail_mcp"
+    volumes:
+      - .:/app # Mount current directory to /app inside the container
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:

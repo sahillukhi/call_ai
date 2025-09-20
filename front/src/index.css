@@ -1,0 +1,351 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Call Application Design System - All colors, gradients, fonts, etc defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Call App Color Palette */
+    --background: 240 15% 5%;
+    --foreground: 210 100% 98%;
+
+    --card: 240 12% 8%;
+    --card-foreground: 210 100% 98%;
+
+    --popover: 240 12% 8%;
+    --popover-foreground: 210 100% 98%;
+
+    --primary: 260 80% 65%;
+    --primary-foreground: 210 100% 98%;
+    --primary-glow: 260 100% 80%;
+
+    --secondary: 240 10% 15%;
+    --secondary-foreground: 210 100% 98%;
+
+    --muted: 240 8% 12%;
+    --muted-foreground: 210 20% 70%;
+
+    --accent: 200 100% 70%;
+    --accent-foreground: 240 15% 5%;
+
+    --success: 120 100% 60%;
+    --success-foreground: 240 15% 5%;
+
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 210 100% 98%;
+
+    --warning: 45 100% 65%;
+    --warning-foreground: 240 15% 5%;
+
+    --border: 240 8% 20%;
+    --input: 240 8% 12%;
+    --ring: 260 80% 65%;
+
+    /* Call-specific colors */
+    --call-active: 120 100% 50%;
+    --call-ending: 0 100% 60%;
+    --slide-track: 240 8% 15%;
+    --slide-thumb: 260 80% 65%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-background: linear-gradient(135deg, hsl(240 15% 3%), hsl(260 20% 8%));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(240 10% 10%));
+    --gradient-slide: linear-gradient(90deg, hsl(var(--slide-track)), hsl(var(--primary)));
+
+    /* Shadows with glow effects */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    --shadow-call: 0 0 60px hsl(var(--call-active) / 0.4);
+    --shadow-destructive: 0 0 60px hsl(var(--destructive) / 0.4);
+    --shadow-card: 0 8px 32px hsl(240 15% 0% / 0.4);
+
+    /* Animation variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: var(--gradient-background);
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Animated background with light streaks */
+  .animated-background {
+    position: relative;
+    min-height: 100vh;
+    background: var(--gradient-background);
+    overflow: hidden;
+  }
+
+  .animated-background::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(circle at 20% 80%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--accent) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, hsl(var(--primary-glow) / 0.05) 0%, transparent 50%);
+    animation: floating-lights 20s ease-in-out infinite;
+  }
+
+  .animated-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--primary) / 0.1),
+      transparent
+    );
+    animation: light-sweep 8s ease-in-out infinite;
+  }
+
+  /* Slide to call component */
+  .slide-to-call {
+    position: relative;
+    width: 320px;
+    height: 70px;
+    background: var(--gradient-slide);
+    border-radius: 35px;
+    padding: 4px;
+    box-shadow: var(--shadow-glow);
+    overflow: hidden;
+  }
+
+  .slide-track {
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--slide-track));
+    border-radius: 31px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-thumb {
+    width: 62px;
+    height: 62px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: grab;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--primary-foreground));
+  }
+
+  .slide-thumb:active {
+    cursor: grabbing;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .slide-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: hsl(var(--muted-foreground));
+    font-weight: 500;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+  }
+
+  /* Call timer styles */
+  .call-timer {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 2rem;
+    font-weight: 600;
+    color: hsl(var(--call-active));
+    text-shadow: 0 0 20px hsl(var(--call-active) / 0.5);
+    letter-spacing: 0.1em;
+  }
+
+  /* Pulse animation for slide button */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* End call button styles */
+  .end-call-button {
+    width: 80px;
+    height: 80px;
+    background: hsl(var(--destructive));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--destructive-foreground));
+    box-shadow: var(--shadow-destructive);
+    transition: var(--transition-bounce);
+    cursor: pointer;
+    border: none;
+  }
+
+  .end-call-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 80px hsl(var(--destructive) / 0.6);
+  }
+
+  .end-call-button:active {
+    transform: scale(0.95);
+  }
+
+  /* Audio Visualization Styles */
+  .audio-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 40px;
+    margin: 10px 0;
+  }
+
+  .audio-bar {
+    width: 3px;
+    height: 15px;
+    background: hsl(var(--primary));
+    border-radius: 2px;
+    transition: height 0.1s ease;
+  }
+
+  .audio-active {
+    animation: audioPulse 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes audioPulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  /* Transcript Styles */
+  .transcript-container {
+    background: hsl(var(--muted) / 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    max-height: 16rem;
+    overflow-y: auto;
+    border: 1px solid hsl(var(--border) / 0.2);
+  }
+
+  .transcript-message {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .transcript-message.user {
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    text-align: right;
+  }
+
+  .transcript-message.assistant {
+    background: hsl(var(--accent) / 0.1);
+    color: hsl(var(--accent));
+  }
+
+  .transcript-message.system {
+    background: hsl(var(--warning) / 0.1);
+    color: hsl(var(--warning));
+    text-align: center;
+    font-style: italic;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,20 @@
+FROM python:3.10-slim-buster
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy MCP Gmail server files
+COPY mcp_gmail ./mcp_gmail
+COPY mcp ./mcp
+
+# Create a dummy credentials.json and tokens directory if they don't exist
+# This is for initial build. User will need to replace credentials.json and possibly tokens.
+RUN mkdir -p mcp_gmail/tokens
+RUN if [ ! -f mcp_gmail/credentials.json ]; then echo '{"web": {"client_id": "YOUR_CLIENT_ID","project_id": "YOUR_PROJECT_ID","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_secret": "YOUR_CLIENT_SECRET","redirect_uris": ["http://localhost:8101/oauth2callback"]}}' > mcp_gmail/credentials.json; fi
+
+EXPOSE 8101
+
+CMD ["python", "-m", "mcp_gmail.mcp_server"]

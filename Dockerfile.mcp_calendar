@@ -1,0 +1,20 @@
+FROM python:3.10-slim-buster
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy MCP Calendar server files
+COPY mcp_calendar ./mcp_calendar
+COPY mcp ./mcp
+
+# Create a dummy credentials.json and tokens directory if they don't exist
+# This is for initial build. User will need to replace credentials.json and possibly tokens.
+RUN mkdir -p mcp_calendar/meeting_tokens
+RUN if [ ! -f mcp_calendar/credentials.json ]; then echo '{"web": {"client_id": "YOUR_CLIENT_ID","project_id": "YOUR_PROJECT_ID","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_secret": "YOUR_CLIENT_SECRET","redirect_uris": ["http://localhost:8102/oauth2callback"]}}' > mcp_calendar/credentials.json; fi
+
+EXPOSE 8102
+
+CMD ["python", "-m", "mcp_calendar.mcp_server"]
