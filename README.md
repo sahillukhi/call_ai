@@ -1,5 +1,17 @@
 # ROOMAN - AI Voice Assistant for Meeting Management
 
+This is just a miniature version of my actual project where I have solely built enterprise-level project's backend (the whole Python part). It uses different telephony services for voice calls and also has a feature for web calls where users can just copy the provided link and paste it on their website, and our agent will act as their website's assistant. We developed tools which can scrape your site to create a knowledge base, and tools to write your prompts for your use case and industry. We integrated tools such as Gmail, Database, WhatsApp, Telegram, Slack, and SMS for different use cases. This solution can be used as pay-as-you-go for any single user (B2B) or for any organizations where they want to create their entire workforce.
+
+Further capabilities from CallIntel - AI-Powered Calling (callintel.io):
+• Designed and developed a scalable enterprise-grade conversational AI platform using Google Gemini and ElevenLabs as alternatives, automating real-time voice, messaging, and database interactions.
+• Architected and deployed a modular microservices system with Python, FastAPI, Docker, Supabase, PostgreSQL, enabling independent scaling, reliability, and multi-tenant organization support.
+• Engineered a real-time voice bridge with Twilio featuring µ-law ↔ PCM conversion, Voice Activity Detection (VAD), intelligent interruption handling, live transcription, summarization of calls, post-processing, and WebSocket-based streaming.
+• Integrated model context protocols (MCPs) for WhatsApp (Selenium), Telegram (Telethon), Gmail (OAuth2), and PostgreSQL with AI-driven natural language to SQL querying for post-processing actions.
+• Implemented advanced agent/session/organization management, including authentication, credential rotation, role-based permissions, and audit logging.
+• Delivered enterprise features: batch calling, scheduled calls, outbound/inbound call APIs, real-time call management, email automation, WhatsApp/Telegram messaging, NLP-powered database queries.
+• Ensured scalability, security, and reliability via Docker containerization, load balancing, encrypted credential storage, OAuth, multi-factor authentication, error recovery, and performance monitoring.
+• Achieved sub-100ms real-time audio latency, concurrent session handling, rate-limited LLM interactions, and structured logging for system observability.
+
 ## Overview
 
 ROOMAN is an intelligent AI voice assistant designed to help users manage their schedules and meetings efficiently through natural voice conversations. Built on Google's Gemini 2.5 Flash Live Preview model, it provides real-time voice interaction with advanced calendar management capabilities.
@@ -219,40 +231,18 @@ The system also supports text input for users who prefer typing over voice inter
 └─────────────────┘    └──────────────────┘    └─────────────────┘
                                 │
                                 ▼
-                       ┌──────────────────┐
-                       │   MCP Servers    │
-                       │ ┌──────┐┌──────┐ │
-                       │ │Calendar││Gmail│ │
-                       │ │Server ││Server│ │
-                       │ └──────┘└──────┘ │
-                       └──────────────────┘
+                       ┌─────────────────────┐
+                       │   MCP Servers       │
+                       │ ┌────────┐┌───────┐ │
+                       │ │Calendar││Gmail│ │ │
+                       │ │Server  ││Server │ │
+                       │ └────────┘└───────┘ │
+                       └─────────────────────┘
                                 │
                                 ▼
                        ┌──────────────────┐
                        │   PostgreSQL     │
                        │   Database       │
                        └──────────────────┘
+
 ```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-[Add your license information here]
-
-## Support
-
-For issues and questions:
-- Create an issue in the repository
-- Check the logs for debugging information
-- Ensure all services are running and authenticated properly
-
----
-
-**Note**: This is an experimental project using Google's Gemini voice models. Some features may have limitations due to the experimental nature of the underlying AI technology.
